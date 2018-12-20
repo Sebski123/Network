@@ -7,7 +7,7 @@
 import socket
 import ssl       # Fetch the socket module
 
-HOST = '192.168.1.10'  # Standard loopback interface address
+HOST = ''  # Standard loopback interface address
 PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 DataCommingIn = True
 
