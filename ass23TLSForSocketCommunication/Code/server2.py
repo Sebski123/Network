@@ -3,10 +3,12 @@ import thread
 from time import sleep, gmtime, strftime
 import ssl       # Fetch the socket module
 import select
+import threading
 
 HOST = ''
 PORT1 = 65432
 PORT2 = 65433
+
 
 def handler(clientsock, addr):
     while 1:
@@ -18,7 +20,7 @@ def handler(clientsock, addr):
 
 if __name__ == '__main__':
     ADDR = [(HOST, PORT1), (HOST, PORT2)]
-
+    tList = []
     for i in range(2):
         serversock = socket(AF_INET, SOCK_STREAM)
         serversock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
@@ -32,7 +34,12 @@ if __name__ == '__main__':
                                         server_side=True,
                                         certfile="certificates/server.crt",
                                         keyfile="certificates/server.key")
-        thread.start_new_thread(handler, (clientsockSSL, addr))
+        tList.append(threading.Thread(
+            target=handler, args=(clientsockSSL, addr)))
 
-    sleep(1000)
+    for t in tList:
+        t.start()
+        print t.name
 
+    for t in tList:
+        t.join()
