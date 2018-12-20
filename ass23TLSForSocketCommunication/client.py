@@ -13,15 +13,10 @@ PORT = 65432            # The port to send data to on the server
 mySensorReadings = 'go'  # The application layer protoll
 
 mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mySocket2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Require a certificate from the server. We use a self-signed certificate
 # so here ca_certs must be the server certificate itself.
 ssl_sock = ssl.wrap_socket(mySocket,
-                           ca_certs="serverCertificate.crt",
-                           cert_reqs=ssl.CERT_REQUIRED)
-
-ssl_sock2 = ssl.wrap_socket(mySocket2,
                            ca_certs="serverCertificate.crt",
                            cert_reqs=ssl.CERT_REQUIRED)
 
@@ -33,7 +28,6 @@ def readSensors():
 
 with ssl_sock as s:
     ssl_sock.connect((HOST, PORT))
-    ssl_sock2.connect((HOST, PORT))
     text = 'go'
     while mySensorReadings != 'q':
         mySensorReadings = readSensors()
