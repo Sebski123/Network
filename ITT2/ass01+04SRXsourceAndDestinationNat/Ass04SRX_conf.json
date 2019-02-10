@@ -1,0 +1,240 @@
+## Last changed: 2019-03-08 14:24:18 UTC
+version 12.1X46-D30.2;
+system {
+    root-authentication {
+        encrypted-password "$1$1YjdBnPl$/vkiMRkDbY0bXsC5G8RPK/"; ## SECRET-DATA
+    }
+    services {
+        ssh;
+        web-management {
+            http {
+                interface ge-0/0/0.0;
+            }
+        }
+    }
+    syslog {
+        inactive: user * {
+            any emergency;
+        }
+        file messages {
+            any any;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands any;
+        }
+    }
+    license {
+        autoupdate {
+            url https://ae1.juniper.net/junos/key_retrieval;
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        unit 0;
+    }
+    ge-0/0/1 {
+        unit 0 {
+            family inet {
+                address 192.168.2.1/24;
+            }
+        }
+    }
+    ge-0/0/2 {
+        unit 0 {
+            family inet {
+                address 192.168.3.1/24;
+            }
+        }
+    }
+    ge-0/0/3 {
+        unit 0 {
+            family inet {
+                dhcp;
+            }
+        }
+    }
+}
+routing-options {
+    static {
+        route 0.0.0.0/0 next-hop 192.168.248.2;
+    }
+}
+security {
+    address-book {
+        global {
+            address pacManServer 192.168.3.8/32;
+        }
+    }
+    screen {
+        ids-option untrust-screen {
+            icmp {
+                ping-death;
+            }
+            ip {
+                source-route-option;
+                tear-drop;
+            }
+            tcp {
+                syn-flood {
+                    alarm-threshold 1024;
+                    attack-threshold 200;
+                    source-threshold 1024;
+                    destination-threshold 2048;
+                    queue-size 2000; ## Warning: 'queue-size' is deprecated
+                    timeout 20;
+                }
+                land;
+            }
+        }
+    }
+    nat {
+        source {
+            rule-set rs1 {
+                from zone trust;
+                to zone untrust;
+                rule r1 {
+                    match {
+                        source-address 0.0.0.0/0;
+                        destination-address 0.0.0.0/0;
+                    }
+                    then {
+                        source-nat {
+                            interface;
+                        }
+                    }
+                }
+            }
+        }
+        destination {
+            pool dst-nat-pool-1 {
+                address 192.168.3.8/24 port 80;
+            }
+            rule-set rs1 {
+                from zone untrust;
+                rule r1 {
+                    match {
+                        destination-address 192.168.248.131/16;
+                        destination-port 80;
+                    }
+                    then {
+                        destination-nat {
+                            pool {
+                                dst-nat-pool-1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    policies {
+        from-zone trust to-zone trust {
+            policy default-permit {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone trust to-zone untrust {
+            policy default-permit {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+            policy internet-access {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone untrust to-zone trust {
+            policy server-access {
+                match {
+                    source-address any;
+                    destination-address pacManServer;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+            policy default-deny {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    deny;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone trust {
+            tcp-rst;
+            interfaces {
+                ge-0/0/1.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/2.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+        security-zone untrust {
+            screen untrust-screen;
+            interfaces {
+                ge-0/0/0.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            http;
+                            https;
+                            ssh;
+                            telnet;
+                            dhcp;
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/3.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            http;
+                            https;
+                            ssh;
+                            telnet;
+                            dhcp;
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
