@@ -1,0 +1,757 @@
+## Last changed: 2019-03-22 10:41:56 UTC
+version 12.1X46-D30.2;
+system {
+    root-authentication {
+        encrypted-password "$1$G22Z2oyY$kSGLHjzVrnUDdqzXlUkGj."; ## SECRET-DATA
+    }
+    name-server {
+        208.67.222.222;
+        208.67.220.220;
+    }
+    login {
+        class readonly-fa {
+            permissions [ view view-configuration ];
+        }
+        user anthony {
+            uid 2009;
+            class super-user;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCyR2eA0d44ZfjrvqpWBn1DnO4160dU9nRj8wZ2OHSByBVYwHM8WfMxYW7hIVGkxhsFwX6TYuoL5E/B9kIRxIZotIT+Q+Z6Q5xDDVVdvkecjBG6huz+UtCxtieggetW/sCjeLXFNxRe7CRZifd3aOyTr03zOS+p6leSphMh+ejX2YJew+HpajST8juc0dgbvK8RPsj9RLUWslCnqADayBDSmVgY1rIcQJBGKOziu1kcX3anrcuaIJLOk2iIpJJNQxFvE7zEk1PeCDOpaDSwU8uPbOb7GNKHFZajZOIz+ZRRMYSBq0KzEhjPpyBSPJJ5TA3LU79Bz9ggWs7y1taQ83MS5NhzX5L7XgByfYh50mY2pcs2mUZlI28iZllG2bgtb1glxK3WSQuKTjD884q2xCSDpTXnZwyzSFH52R4cOlTfH4uxMMQxX2oxACjRDVAoYCJCrjhFJg6tgOKyLLVII+7u7R5ip2WHRMIi6gl3VnJ30h3eQhKs0hd+tw8BqvC2bN10OY0lSM98Z52FkcmapaWVeZIbTlNf/OANPcyBC1SHyErs946tuWCuE6mXo17FarLlu9owQlZoo90Q1NvpWFpwYaAqY0irVECdf2pH8QK85VmgoWrCNZDuKycH+3+11RZQtez5o6g8NmaEkn32hr5xCm84WhZ3F9bMKIRu1zzUuw== aj.peak.08@gmail.com"; ## SECRET-DATA
+            }
+        }
+        user jesper {
+            uid 2008;
+            class super-user;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDHcXH6Z0TZCkhQIlTas7vO/Yiqt9vh7o1b0I8wO8QYevhafrdtkeXE5XCLOogSqvjqL6kTuaUujvK5gPUoZCuh+bwMnrCbpfn5fAJnjk38X4rc7NN6OYHbgdl/K4viE9kKSNxWOnk0eL3INxTZMDA7GrciW8swzz18Sx80QqJXuF/zv46swDE990401ETNdb3gA+MNlFDCd1wi+WZhrrU/rKPwLWb293fy6fZN8pM0OOiOwTMGjfPyu3CBQT1XsRkWbcHnWUWFAfPpvQlqH90QT1Ig+Sl9Dsp1JnCb6WaprAgm71YAr5iVwo44nvfjlsVUN+Pe9wunbtLXUy4m0/47reVCz7PwgWdH4wQJzz3wqIy5MLxI8m9Emlw+1hWz0Aske47DnBg+W3JF0RVDTu6jxUj+F5dc7g8WP2J/4ByDFBknQPCJPeQ1DJnMdajBXaqS8PptHT+48hPjoeq0iXVgq2uUMrxM4tAnSV+JqhlyICQDxfPw2EUk4s/aiT1OFw1fYoaYt/X0NTyClpKKGSNxbOsSVUQxzeXmKKVwnyga+9pp4ZLddbFcMzw/dsAL2s1xkizWfg33jnAM/Dz5rlzZ0YRYxvDCLGTO+jFkIAQWLDL2iWDH5uht5qAsPZKnWTVwwceE+pActZ2J54NKSMgQHMhEmjWwG4GByZ8GoJaACQ== jespertinusaggerholm@gmail.com"; ## SECRET-DATA
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCduTPPSzWHvc6yKUFJQmG2SxCtNFF+q9tve/ANfI55Gh75H93phKgObenN4VVnXc5Gtcjh02Wr74KuUXcGbqlrw/P2Dz+9OAeTDVn/oD5VsSyuINcZWoAd+oIZMhpGq3L1ZMVi6DdwC+vbTtBmSbyDWuefq4fKJNrwLZhCkQbpPagdqZjdKq1e1b171N/a513DcaxNWN7WuVpYRwaZPGiJTkdDFYvV2yQD3XEW9StFuek540lnr+xgKvqlqL4B0488Yec9hHbFppO4S2GK0rPk9QLj3n06znf8jFfvw2ebX/Z8GFhaw+iikTQXlf/uSVp1WT4m5rs8Fhcz/MB0N7IN hidde@DESKTOP-GIO1IAT"; ## SECRET-DATA
+            }
+        }
+        user kasper {
+            uid 2011;
+            class super-user;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDe2ldWzIqlsPAasixcvv4s1mfwaEsIyTre+JsMBh1I2k2F//jetEBZ2I/U8//a4mA4bAXU+3G2+2DWsDWRRirguiAkwE18MQgFuv69nBiOV36miscjwJ0h4yWAjP2Bk6CqfO6OBh6cD98bRDIGAz/GR1eWMk1/ohnv4p8cB0tlXpbJLDxcawMOTwHQ+tHfP5sZD9uS0qYsmMfWMp6THgxK0Zj7yu+UcRL4Wf4xZY3E8sr1meegZEq2nZq6XsI907TMFfTciouclDUir9UDAGYwukq7+dYwp1C1X478byH58IXoYsG++3IceqQAqWSHkh7I0hzXyc4I/iblVM7t6MB6AtSPCiqTZSuvcXchHBYKioYgaRUP2aW/Z+fW9w/mCytAeukNIudkL3BEmE2+H6oBy0Q9mxmjI9ngAQitsz+vCG/8aJseEP4f6RJNBJI+0xMMgfq2bqL/E1sBCp/GIWNLIB2VVoo7lx+7kLYYRDRTCpHBhKuzfAJMxQQkJnnArKDJZb76gfEFGQRdlsv6DSe7atwotk1HdNl/5dE9TluoDhBFF4l40AkrF12+Vuu3r8eq3wFbn9zDCJqQbEPF1ngYU1PyfsoEG3UcHtI/VnT+Btezw1uEk/WTW47v4ya8rZSQ4mZIIg+FxHdQP3LXCdU0Sw0sX7icvL20smN+h/QrAQ== Laptop"; ## SECRET-DATA
+            }
+        }
+        user laurynas {
+            uid 2010;
+            class super-user;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnUWPsJwjGZxIHxx9X3XjmiRiIHScyTkLTVkCucdxB8RfkDrcDAPBxouoy2xlplOzrm7o2ZRw6kBVrFIOdMEsAg96iVS9Kr1M5lqIUW5XbpIp8MS7DAIUoup/giHZ4qaKsq8g3riMLRT0rTXcfQkJKiD8I+PDhxylbnZmySN4QKWpauOYr6D9SuYrcs+eeaggfSW4Ygw1xDuors3DtWIz/G0tdpGe2PXlqVywpji3c4Uelo6BYsy0bAEUvfQZsPWprPJm5bF7XHX2fX9cXchvCYEk3u/eYDv7GtJbhDQrPrwCgBctOwsT4SDmPebOTYJB745cysQu4GdF4vb/JP5TF laury@MSI"; ## SECRET-DATA
+            }
+        }
+        user morten {
+            uid 2013;
+            class readonly-fa;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPoHX1OCuUw1PWMjB9DHVUbtVeWInrCrFXzBpBTGrhU/4Ja7X0Biqqf2nWy60OGBAKce1yjDFco4K1UR5FaUReAflV/72PJaV98PZejb6NTn6A5WGnivSQ7+DrKOh2CSeDsW5ZaodiwTMA1F9eb3wHloSUhshkH2mzgF46Tbys7IqOYnZRnzwWSvUctuXMWYBr8SuY7/tPXTgvUneMA7BjB52oxqyITrT9UcjnhChM5hjBdnqvSe3ZA3Pixo184gQ1PuuUWQZPFOLeJd4VHBLH6ba+cKnNSzFc0qo4NiP2RTDUdEEVSarA/KLIw+7Uc19bqwkiZ9Nhbv/x8P5t3+3d moz@monlennart"; ## SECRET-DATA
+            }
+        }
+        user niclas {
+            uid 2004;
+            class super-user;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHAuTruNyhfJ4VDBqcwIagV+K1/MzSA2SGSU0JGpHuOdKuDaDkQ473gYrfDQAjzNTCaA9LP22WiSOUcztTpXTxpjcaNLMJECrYeXXTIfk45TZQmW/JhMi2eYmrc2IPVKDmKQ3i8liyi7m/OaLUSVB6umVj+V7s73BVTbGVDLrhiFX46dsmVM2wSR1k87RXRkBXq9d4stLt6WDpeGHdFNrz5r5Pj/NB2E09K9l6/eKGiVLpgLgGT6z1cFJDh7kJdPJQZWkhtVuWNdOsbWSisRsGee1nl5KwYfsALmqDwhFbIAqgqLhTz/ii9lls5uBVdfTCB66+zsenkLLoBMY3KS7P Niclas Andersen@DESKTOP-ANAJCBA"; ## SECRET-DATA
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCi7DQ5U3mLBuaoVDdO9eCQUbqMTZ4UtMyuChOdLVg1vr8MnNO1ma1lQs+q0Q7EF9s3qkYiB49RPw+x5UQ2HmJMk7XXMCdJiw2/qBwHg+LIKwoM9kXhEinF9U+rw9XyP7lWmMT1KG8g3/77tscDesBB97piT3R1JIner49hsHnRZGZ7/CylYUUny5kIoRsQ+87DSxXFUdIy7Fgh4eaiGWx0v72MOYcG20K0JraC0Pcz/3XnnxwJqZnJFYQpPskJVPaqLFxgL3hUZCikUvckp7cXngirNqidjGU/Xd3oVnDrCiDJt5nRY9ASxPZX9RqKOzWe+ZMt6/DBKYiRLUOTV0f9 Niclas@Niclas_MSI"; ## SECRET-DATA
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4IYk2oL0xg1u7QX0ndulKg/KJTMcX6nYhcAc4qN0iIqrVPM4Vc79oA97m/961ms2/tZKhYyXBWOaSV4rVVu1Scp61HWE1NHsvYQLtB55xZMeRyi3cQeiOiWKxJk3/lPNpcnLU4nfa3gKUsI7KS/QgjRpzHae2z7LsFE97uZ1Cir5iDakj93vp269eoZzNdUelqBPlszbblXOHxJncUV2QRraS0081JCVABzTDS8uCG5UQVkM4lSQmLZWU6xm6GjruTr3HVaVOBRWOB7fi6lqsjozMJt5cW50IaX+EeujklEcUfH1OnwWO8h4tgt52JwrRpwMO1UMDb5ZCRPE5l7dp nicas@DESKTOP-M3RSM98"; ## SECRET-DATA
+            }
+        }
+        user sebski {
+            uid 2002;
+            class super-user;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDWHn5KYVBuWi3PMwqSTBQjICEYnif5Jkt5lvz+TL18hZu6qlGg9HS6EXNSCILz5cLo92lXB8mgeu5Rd82Q0ciVzADoNA/2scY73Ysxt9sRK2hnluklgFixECKdzfl48p7+wMZHrZuI1ysizn3m7xXFJ3UJj5R+fia8Jgdumi5fG50CGUJFJFjtirAH1WBFXFJaN/smREttwACJ5DUo1LPGH20rRCQn3HinclxkBQ8rx2IXJj/vsXGL4wEPzHXci1blUoMWfN7zf9dkOksFVcf4Nmx8lf5Hyrx9jFawclz1Pwjy+DZ7nKT2nwarPzRaxsKjRhZtZm3lsSpkiYlR8AJz38EmbKQ4uylsYfuL+NrX7ufL6soeRgT/OEqQgPEFq+Myvuugfyb4WM4fneE9S0bpja0nQrCI77+u2W6Tl9LMOaNgsmbVi5OfSkUBlS0JY5ulwq3mmJHGcsdA+eWrv9FFWtIpVb9tVaMpSEOuzxURu8ojWx6V+4Sp8k5LxW+oJHluu+qzwf8FE8esaCEdGO1vZ+1u11IDc3IuNw90TWpLckZdBRWaP/hakxTcfGWNA+on/eKwuNWH3zgo+rY73Kqu1qJsomdDDuTiJ/fS47LqxtXbeyj2lj5RXlbF92yEkvPm/An/9QJvtIjbihFpjdOl9NcattYjjVXg2fMAtisBTQ== sebthomle@gmail.com"; ## SECRET-DATA
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDWHDPo7j15NjmaoWaxH8yQNfCOW2NaZQA9xmTl3ZAUXTuT2+YjME7tWwQhWZze3wA6evmBmk+escXpilEy75G/xQvRw9TKC72AZFSBup0+AGurD9DivoSfKuLOMzykpwyCwhXWwXe8+p47GxT4CkPAOrsO8hx28XWdXh9E+Awvz30/uVQZEZHi8ELnX0GLQUiB+6L9sokKkiGwsaJEzbMH8ihX10/nVMEcVVJpa8YQ0IiOneojL7eBCEZvLo/n+bfhs9yjG3iwajsB9rtYTiqPAucEvWduL5KD/fVu061/hWjt1614BsNk9bh/5DdKYG9zL8FTE9gM1njDP2AbHxMlD7yT7l5wg4baxxG+9RmHAqwNtiHPgW0rKxk710Tjt9MdOgqZV90QAg4aQZPDHMlqwu8hQacqoHb7SNqRyJcphs5Wd37a0iDNldDyfNTmLNcW4BK9TrhuDBJo2r1l6u9MZrtN5LbXYi36DHajIQiP5ZfT9gPWn+hZybj5PLHQ6naw/I27/F/qw30bkzz47tOrS22MLSk/29uqeo6PIdHR4/JoT/TcWavBJi8rLnUoovHLoALaWlYozsdPG8Rb38FbR8/ZQj+4FC0MxvYzC+MOCswiGp4TmLkdYSY/Cc9NKjpKp5fJpExnzgrBSJUuny2YAl4guNbxO9oUboXCPjyBmw== Sebski@DesktopPC"; ## SECRET-DATA
+            }
+        }
+        user thomas {
+            uid 2012;
+            class super-user;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDASZiLf17rBzE5jkilPjneyiu6oGYRvyBRLeu8Koxx2kq1/K0coq6HbXXVrLMDnPzPy2CLpe0ypHDss4HiyRZosu+eq7DzLYfM9yoeLk9qKGin9UBHQCH1mvPpclpymkmSIi4joyXGcIFdqPrPTDlSCz28cKxr5mOxzlk69BGFtpPvSdwQWxcHfidKTD4KJ+EvwXtQkbE2ZKn7q6OplfIV4l111yj7xpC3sv2AkT3ofE4tiFWbC86fHjrrDkShTkmZflHmUbZuYaD9VxJery+9kp9FYhX+Wik2LoAGNBz/K9Vw6BDzQRHjoLGSq2XA2jloi4I6B/q5oVJ7mp+3Ai5P6pmTNpLQq4REwjBGjx873ewX4mryfyVS0J9aah/1t/2W2ehvqjiqnaYYbVcKloyQdvt5AtcEyr3OKHDczbIgbc7mtJR3axJNSXSRe48NNUjVhoY+SuafK5JCy3gusdVa8OwcbyUmPaeHRF0l+vCiaS8umS6YjE9DVtPoavCgBtrEMzQeJ0cfMc5G4F4PFXjOT+WfZrA0bBO0z5CsjksLq7ZvOKe+nPqESFH62/8vRpnMKIwnXEzm+iM2IWu2CZPcDNPm3Q8qiCJ0RPXvYj5cpSQzr8rNR5DDUVb9Qi6WTzxpxx8mpxJfR9gQywi7v/t2PcW2ct5M6rFyvELYmLjyxQ== ttbargisen@gmail.com"; ## SECRET-DATA
+            }
+        }
+        user tihamer {
+            uid 2014;
+            class super-user;
+            authentication {
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCwk0uZM3kv2a2ObYdK1q71nS2ESVYGZF/cjvujMRpD+QfymiS6h9wKRVJi56ZWmGgnPbSFduAJJBtK+aT1V/CIlfLIK1m212EDaGi3WyUxuHMdJlHvcF1wj5n22CtFae30lX5uQ9aDXzwpQmGFukvDrFrhTc57jzUiH0T/bj46GZ/CWhkprSGNCTbUmmG4dO+pd7GQOl1eN6rcUrVzzSR5d5/uAR0G4R1WgHf/PNjbCubJ7ICjplI7P8/tZoPF7Ua32sRKSFhrL5xzD33830BDU/eeNk2dvkD+woCLBes/WOFWZWBeGqrXcakv0Iydp+fq4N9n70K31dYuzemSBWU1DIhgSpBgyg/OinyPonzFd9uUFNsWdToO8lPR7nJsmudwEMxAQfzL9G0/Kbazw8ndkJdQ9uAXBNh7ZgJUazniEOIaxtFNnEJfhS8mwo2WPFKMlkviFAzVQNyt1h7ts8sjIC0tahQ2cosSeF7VQGGOFwhHxEnlWBKakHwBitndIm/Y9tjbX8CqZdB50SWTWVqMVTG19Np4MA1z8jmTD+LS5sZXIKIZ3wpR+GkpAqCqlx0+Z+c7Uqp2xQkCcKmcVDRKJTfk89vFr5TK5EAGzbtnjJeKG5G84Gfn77NgknsK669gMSqQl/65J71skndToNvyFjwGXPzPGXUTNSi6zug+1w== tiha0006@edu.eal.dk"; ## SECRET-DATA
+            }
+        }
+    }
+    services {
+        ssh {
+            root-login deny-password;
+        }
+        telnet;
+        xnm-clear-text;
+        dhcp {
+            router {
+                192.168.1.1;
+                192.168.30.1;
+                192.168.40.1;
+            }
+            pool 192.168.1.0/24 {
+                address-range low 192.168.1.2 high 192.168.1.254;
+            }
+            pool 192.168.30.0/24 {
+                address-range low 192.168.30.50 high 192.168.30.100;
+                name-server {
+                    8.8.8.8;
+                }
+                router {
+                    192.168.30.1;
+                }
+            }
+            pool 192.168.10.0/24 {
+                address-range low 192.168.10.50 high 192.168.10.100;
+                name-server {
+                    1.1.1.1;
+                }
+                router {
+                    192.168.10.1;
+                }
+            }
+            pool 192.168.20.0/24 {
+                address-range low 192.168.20.16 high 192.168.20.254;
+                router {
+                    192.168.20.1;
+                }
+            }
+            propagate-settings ge-0/0/0.0;
+        }
+    }
+    syslog {
+        archive size 100k files 3;
+        user * {
+            any emergency;
+        }
+        file messages {
+            any critical;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands error;
+        }
+    }
+    max-configurations-on-flash 5;
+    max-configuration-rollbacks 5;
+    license {
+        autoupdate {
+            url https://ae1.juniper.net/junos/key_retrieval;
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        unit 0;
+    }
+    ge-0/0/1 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-10;
+                }
+            }
+        }
+    }
+    ge-0/0/2 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-10;
+                }
+            }
+        }
+    }
+    ge-0/0/3 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-10;
+                }
+            }
+        }
+    }
+    ge-0/0/4 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-10;
+                }
+            }
+        }
+    }
+    ge-0/0/5 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-10;
+                }
+            }
+        }
+    }
+    ge-0/0/6 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-20;
+                }
+            }
+        }
+    }
+    ge-0/0/7 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-20;
+                }
+            }
+        }
+    }
+    ge-0/0/8 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-20;
+                }
+            }
+        }
+    }
+    ge-0/0/9 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-20;
+                }
+            }
+        }
+    }
+    ge-0/0/10 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-20;
+                }
+            }
+        }
+    }
+    ge-0/0/11 {
+        unit 0 {
+            family inet {
+                address 192.168.40.1/32;
+            }
+        }
+    }
+    ge-0/0/12 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-30;
+                }
+            }
+        }
+    }
+    ge-0/0/13 {
+        unit 0 {
+            family inet {
+                filter {
+                    input port-filter-grp-30;
+                    output port-filter-grp-30;
+                }
+                address 192.168.30.1/24;
+            }
+        }
+    }
+    ge-0/0/14 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan-30;
+                }
+            }
+        }
+    }
+    ge-0/0/15 {
+        unit 0 {
+            family inet {
+                address 10.217.19.211/22;
+            }
+        }
+    }
+    vlan {
+        unit 0 {
+            family inet {
+                address 192.168.1.1/24;
+            }
+        }
+        unit 10 {
+            family inet {
+                address 192.168.10.1/24;
+            }
+        }
+        unit 20 {
+            family inet {
+                address 192.168.20.1/24;
+            }
+        }
+        unit 30 {
+            family inet {
+                address 192.168.30.1/24;
+            }
+        }
+    }
+}
+forwarding-options {
+    port-mirroring {
+        input {
+            rate 1;
+            run-length 10;
+        }
+        family inet {
+            output {
+                interface ge-0/0/11.0 {
+                    next-hop 192.168.40.20;
+                }
+            }
+        }
+    }
+}
+routing-options {
+    static {
+        route 0.0.0.0/0 next-hop 10.217.16.1;
+    }
+}
+protocols {
+    stp;
+}
+security {
+    address-book {
+        global {
+            address pi 192.168.30.10/32;
+            /*waiting for morten*/
+            address rpi-webserver-ext 10.217.19.211/32;
+            address rpi-webserver-int 192.168.20.8/32;
+            address rpi-ext-20 10.217.19.211/32;
+        }
+    }
+    screen {
+        ids-option untrust-screen {
+            icmp {
+                ping-death;
+            }
+            ip {
+                source-route-option;
+                tear-drop;
+            }
+            tcp {
+                syn-flood {
+                    alarm-threshold 1024;
+                    attack-threshold 200;
+                    source-threshold 1024;
+                    destination-threshold 2048;
+                    timeout 20;
+                }
+                land;
+            }
+        }
+    }
+    nat {
+        source {
+            rule-set trust-to-untrust {
+                from zone trust;
+                to zone untrust;
+                rule source-nat-rule {
+                    match {
+                        source-address 0.0.0.0/0;
+                    }
+                    then {
+                        source-nat {
+                            interface;
+                        }
+                    }
+                }
+            }
+        }
+        destination {
+            pool des-nat-pool-vlan-30 {
+                address 192.168.30.10/32 port 22;
+            }
+            pool des-nat-pool-vlan-10 {
+                address 192.168.10.25/32 port 22;
+            }
+            pool http-grp-30 {
+                address 192.168.30.10/32 port 5000;
+            }
+            pool api-grp-10 {
+                address 192.168.10.25/32 port 5000;
+            }
+            rule-set rs1-vlan-30 {
+                from interface ge-0/0/15.0;
+                rule r1 {
+                    match {
+                        destination-address 10.217.19.211/32;
+                        destination-port 1300;
+                    }
+                    then {
+                        destination-nat {
+                            pool {
+                                des-nat-pool-vlan-30;
+                            }
+                        }
+                    }
+                }
+                rule r2 {
+                    match {
+                        destination-address 10.217.19.211/32;
+                        destination-port 1100;
+                    }
+                    then {
+                        destination-nat {
+                            pool {
+                                des-nat-pool-vlan-10;
+                            }
+                        }
+                    }
+                }
+                rule http-grp-30 {
+                    match {
+                        destination-address 10.217.19.211/32;
+                        destination-port 3000;
+                    }
+                    then {
+                        destination-nat {
+                            pool {
+                                http-grp-30;
+                            }
+                        }
+                    }
+                }
+                rule api-grp-10 {
+                    match {
+                        destination-address 10.217.19.211/32;
+                        destination-port 1102;
+                    }
+                    then {
+                        destination-nat {
+                            pool {
+                                api-grp-10;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    policies {
+        from-zone trust to-zone untrust {
+            policy trust-to-untrust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone trust-20 to-zone trust-20 {
+            policy trust-to-untrust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone trust-20 to-zone untrust-20 {
+            policy trust-to-untrust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone untrust-20 to-zone trust-20 {
+            policy web-server-access {
+                match {
+                    source-address any;
+                    destination-address rpi-ext-20;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+            policy default-deny {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    deny;
+                }
+            }
+        }
+        from-zone untrust to-zone trust {
+            policy untrust-to-trust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone trust to-zone trust {
+            policy trust-to-trust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone trust {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+            interfaces {
+                vlan.0;
+                ge-0/0/1.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/2.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/3.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/4.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/5.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/11.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/12.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/13.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/14.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                vlan.30 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+                vlan.10 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+        security-zone untrust {
+            screen untrust-screen;
+            interfaces {
+                ge-0/0/0.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            dhcp;
+                            tftp;
+                        }
+                    }
+                }
+                ge-0/0/15.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+        security-zone untrust-20 {
+            interfaces {
+                /*external*/
+                ge-0/0/10.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            http;
+                            https;
+                        }
+                    }
+                }
+            }
+        }
+        security-zone interfaces;
+        security-zone trust-20 {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+            interfaces {
+                ge-0/0/6.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/7.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/8.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                /*rpi*/
+                ge-0/0/9.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+                vlan.20 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+firewall {
+    filter port-filter-grp-30 {
+        term mirror-term-grp-30 {
+            from {
+                source-address {
+                    0.0.0.0/0;
+                }
+            }
+            then {
+                port-mirror;
+                accept;
+            }
+        }
+    }
+}
+poe {
+    interface all;
+}
+vlans {
+    vlan-10 {
+        vlan-id 10;
+        l3-interface vlan.10;
+    }
+    vlan-20 {
+        vlan-id 20;
+        l3-interface vlan.20;
+    }
+    vlan-30 {
+        vlan-id 30;
+        l3-interface vlan.30;
+    }
+    vlan-trust {
+        vlan-id 3;
+        l3-interface vlan.0;
+    }
+}
+

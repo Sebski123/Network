@@ -1,0 +1,230 @@
+## Last changed: 2019-02-22 12:40:53 UTC
+version 12.1X47-D15.4;
+system {
+    root-authentication {
+        encrypted-password "$1$1YjdBnPl$/vkiMRkDbY0bXsC5G8RPK/"; ## SECRET-DATA
+    }
+    services {
+        ssh;
+        web-management {
+            http {
+                interface ge-0/0/0.0;
+            }
+        }
+    }
+    syslog {
+        inactive: user * {
+            any emergency;
+        }
+        file messages {
+            any any;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands any;
+        }
+    }
+    license {
+        autoupdate {
+            url https://ae1.juniper.net/junos/key_retrieval;
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        unit 0 {
+            family inet {
+                address 192.168.3.1/24;
+            }
+        }
+    }
+    ge-0/0/1 {
+        unit 0 {
+            family inet {
+                filter {
+                    input my-filter;
+                    output my-filter;
+                }
+                address 192.168.2.1/24;
+            }
+        }
+    }
+    ge-0/0/2 {
+        unit 0 {
+            family inet {
+                address 2.2.2.1/24;
+            }
+        }
+    }
+}
+forwarding-options {
+    port-mirroring {
+        input {
+            rate 1;
+            run-length 10;
+        }
+        family inet {
+            output {
+                interface ge-0/0/2.0 {
+                    next-hop 2.2.2.2;
+                }
+            }
+        }
+    }
+}
+security {
+    screen {
+        ids-option untrust-screen {
+            icmp {
+                ping-death;
+            }
+            ip {
+                source-route-option;
+                tear-drop;
+            }
+            tcp {
+                syn-flood {
+                    alarm-threshold 1024;
+                    attack-threshold 200;
+                    source-threshold 1024;
+                    destination-threshold 2048;
+                    queue-size 2000; ## Warning: 'queue-size' is deprecated
+                    timeout 20;
+                }
+                land;
+            }
+        }
+    }
+    policies {
+        from-zone trust to-zone trust {
+            policy default-permit {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone trust to-zone untrust {
+            policy default-permit {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone untrust to-zone trust {
+            policy default-deny {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    deny;
+                }
+            }
+        }
+        from-zone trust to-zone DMZ {
+            policy allow-http {
+                match {
+                    source-address any;
+                    destination-address PacmanServer;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone DMZ to-zone trust {
+            policy default-permit {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone trust {
+            tcp-rst;
+            interfaces {
+                ge-0/0/0.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+        security-zone untrust {
+            screen untrust-screen;
+        }
+        security-zone DMZ {
+            address-book {
+                address PacmanServer 192.168.2.2/32;
+            }
+            interfaces {
+                ge-0/0/1.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+                ge-0/0/2.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+firewall {
+    filter my-filter {
+        term myTerm {
+            from {
+                source-address {
+                    0.0.0.0/0;
+                }
+            }
+            then {
+                port-mirror;
+                accept;
+            }
+        }
+    }
+}
+vlans {
+    vlan-DMZ {
+        vlan-id 3;
+    }
+    vlan-USRLAN {
+        vlan-id 2;
+    }
+}
