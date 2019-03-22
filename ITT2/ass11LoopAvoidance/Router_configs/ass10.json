@@ -1,0 +1,187 @@
+## Last changed: 2019-03-22 08:59:31 UTC
+version 12.1X46-D30.2;
+system {
+    host-name SRXB-3; ##Change to match the router in use 
+    root-authentication {
+        encrypted-password "$1$8HhrRY2i$ZnqBfk52cBGeIcUn6nyE40"; ## SECRET-DATA
+    }
+}
+chassis {
+    aggregated-devices {
+        ethernet {
+            device-count 2;
+        }
+    }
+}
+interfaces {
+    ge-0/0/1 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members OPERATIONS;
+                }
+            }
+        }
+    }
+    ge-0/0/2 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members SALES;
+                }
+            }
+        }
+    }
+    ge-0/0/3 {
+        gigether-options {
+            802.3ad ae0;
+        }
+    }
+    ge-0/0/4 {
+        gigether-options {
+            802.3ad ae0;
+        }
+    }
+    ge-0/0/5 {
+        gigether-options {
+            802.3ad ae0;
+        }
+    }
+    ge-0/0/6 {
+        gigether-options {
+            802.3ad ae0;
+        }
+    }
+    ge-0/0/7 {
+        gigether-options {
+            802.3ad ae1;
+        }
+    }
+    ge-0/0/8 {
+        gigether-options {
+            802.3ad ae1;
+        }
+    }
+    ge-0/0/9 {
+        gigether-options {
+            802.3ad ae1;
+        }
+    }
+    ge-0/0/10 {
+        gigether-options {
+            802.3ad ae1;
+        }
+    }
+    ae0 {
+        aggregated-ether-options {
+            lacp {
+                active;
+            }
+        }
+        unit 0 {
+            family ethernet-switching {
+                port-mode trunk;
+                vlan {
+                    members [ SALES OPERATIONS ];
+                }
+            }
+        }
+    }
+    ae1 {
+        aggregated-ether-options {
+            lacp {
+                active;
+            }
+        }
+        unit 0 {
+            family ethernet-switching {
+                port-mode trunk;
+                vlan {
+                    members [ SALES OPERATIONS ];
+                }
+            }
+        }
+    }
+    vlan {
+        /*OPERATIONS*/
+        unit 10 {
+            family inet {
+                address 192.168.10.1/24;  ##Change addres if several routers are connected to avoid ip-collisions
+            }
+        }
+        /*SALES*/
+        unit 11 {
+            family inet {
+                address 192.168.11.1/24; ##Change addres if several routers are connected to avoid ip-collisions
+            }
+        }
+    }
+}
+protocols {
+    rstp {
+        bridge-priority 4k;
+        interface ge-0/0/1.0 {
+            edge;
+        }
+        interface ge-0/0/2.0 {
+            edge;
+        }
+    }
+}
+security {
+    policies {
+        from-zone OPERATIONS to-zone SALES {
+            policy Allow_HTTP {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application [ junos-http junos-icmp-ping ];
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone OPERATIONS {
+            interfaces {
+                vlan.10 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+        security-zone SALES {
+            interfaces {
+                vlan.11 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                        protocols {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+vlans {
+    OPERATIONS {
+        vlan-id 10;
+        l3-interface vlan.10;
+    }
+    SALES {
+        vlan-id 11;
+        l3-interface vlan.11;
+    }
+}
+
