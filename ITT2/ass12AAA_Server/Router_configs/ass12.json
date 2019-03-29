@@ -1,0 +1,273 @@
+## Last changed: 2019-03-29 13:03:24 UTC
+version 12.1X46-D30.2;
+system {
+    authentication-order [ password radius ];
+    root-authentication {
+        encrypted-password "$1$efhMvpti$e4IuWe/OLf.tJxpZC1yaA0"; ## SECRET-DATA
+    }
+    radius-server {
+        192.168.2.199 {
+            port 1812;
+            secret "$9$F-Z-nCuSrvL7dp0IcrlXxbs2gGi"; ## SECRET-DATA
+        }
+    }
+    login {
+        user bob {
+            uid 2005;
+            class super-user;
+        }
+        user daniel {
+            uid 2007;
+            class super-user;
+        }
+        user remote {
+            full-name "all remote users";
+            uid 2004;
+            class operator;
+        }
+        user susan {
+            uid 2006;
+            class super-user;
+        }
+    }
+    services {
+        ssh;
+        telnet;
+        xnm-clear-text;
+        web-management {
+            http {
+                interface vlan.0;
+            }
+            https {
+                system-generated-certificate;
+                interface vlan.0;
+            }
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        unit 0;
+    }
+    ge-0/0/1 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members userlan;
+                }
+            }
+        }
+    }
+    ge-0/0/2 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members serverlan;
+                }
+            }
+        }
+    }
+    ge-0/0/3 {
+        unit 0 {
+            family inet {
+                address 10.217.19.237/22;
+            }
+        }
+    }
+    ge-0/0/4 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members userlan;
+                }
+            }
+        }
+    }
+    vlan {
+        unit 10 {
+            family inet {
+                address 192.168.3.1/24;
+            }
+        }
+        unit 20 {
+            family inet {
+                address 192.168.2.1/24;
+            }
+        }
+    }
+}
+routing-options {
+    static {
+        route 0.0.0.0/0 next-hop 10.217.16.1;
+    }
+}
+protocols {
+    dot1x {
+        authenticator {
+            authentication-profile-name printer;
+            interface {
+                ge-0/0/4.0 {
+                    supplicant multiple;
+                }
+            }
+        }
+    }
+}
+security {
+    screen {
+        ids-option untrust-screen {
+            icmp {
+                ping-death;
+            }
+            ip {
+                source-route-option;
+                tear-drop;
+            }
+            tcp {
+                syn-flood {
+                    alarm-threshold 1024;
+                    attack-threshold 200;
+                    source-threshold 1024;
+                    destination-threshold 2048;
+                    timeout 20;
+                }
+                land;
+            }
+        }
+    }
+    nat {
+        source {
+            rule-set trust-to-untrust {
+                from zone trust;
+                to zone untrust;
+                rule source-nat-rule {
+                    match {
+                        source-address 0.0.0.0/0;
+                    }
+                    then {
+                        source-nat {
+                            interface;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    policies {
+        from-zone trust to-zone untrust {
+            policy trust-to-untrust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone userlan to-zone serverlan {
+            policy ALLOW_HTTP {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application [ junos-http junos-icmp-ping ];
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone serverlan to-zone userlan {
+            policy ALLOW_HTTP {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application [ junos-http junos-icmp-ping ];
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone trust {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+        }
+        security-zone untrust {
+            screen untrust-screen;
+            interfaces {
+                ge-0/0/0.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            dhcp;
+                            tftp;
+                        }
+                    }
+                }
+                ge-0/0/3.0 {
+                    host-inbound-traffic {
+                        system-services {
+                            all;
+                        }
+                    }
+                }
+            }
+        }
+        security-zone userlan {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+            interfaces {
+                vlan.10;
+            }
+        }
+        security-zone serverlan {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+            interfaces {
+                vlan.20;
+            }
+        }
+    }
+}
+access {
+    radius-server {
+        192.168.2.199 secret "$9$QFnoF/thSeWXNApBESy8LdbsYJD"; ## SECRET-DATA
+    }
+    profile test {
+        authentication-order radius;
+    }
+    profile printer {
+        authentication-order radius;
+    }
+}
+vlans {
+    serverlan {
+        vlan-id 20;
+        l3-interface vlan.20;
+    }
+    userlan {
+        vlan-id 10;
+        l3-interface vlan.10;
+    }
+}
