@@ -1,9 +1,9 @@
-## Last changed: 2019-04-26 14:41:12 UTC
+## Last changed: 2019-05-02 22:37:04 UTC
 version 12.1X46-D30.2;
 system {
-    host-name SRX-A3;
+    host-name SRX-A4;
     root-authentication {
-        encrypted-password "$1$X4TCNp.Q$TSRAE7X3DVkie4rf14vD81"; ## SECRET-DATA
+        encrypted-password "$1$i0cAyqI6$EFHxBbtLXKNwpSEFtSprh/"; ## SECRET-DATA
     }
     services {
         ssh;
@@ -12,7 +12,7 @@ system {
     }
     syslog {
         archive size 100k files 3;
-        user * {
+        inactive: user * {
             any emergency;
         }
         file messages {
@@ -38,14 +38,14 @@ interfaces {
     ge-0/0/2 {
         unit 0 {
             family inet {
-                address 10.1.1.1/24;
+                address 10.2.2.1/24;
             }
         }
     }
     ge-0/0/3 {
         unit 0 {
             family inet {
-                address 10.217.19.237/22;
+                address 10.4.4.1/24;
             }
         }
     }
@@ -57,8 +57,8 @@ interfaces {
 }
 routing-options {
     static {
-        route 10.2.2.0/24 next-hop st0.1;
-        route 0.0.0.0/0 next-hop 10.217.16.1;
+        route 10.1.1.0/24 next-hop st0.1;
+        route 0.0.0.0/0 next-hop 10.4.4.2;
     }
 }
 security {
@@ -78,11 +78,11 @@ security {
         policy IKE-POL {
             mode main;
             proposals IKE-PROP;
-            pre-shared-key ascii-text "$9$8eBx-woJDmfzYgfz36u0LxN"; ## SECRET-DATA
+            pre-shared-key ascii-text "$9$K/TWX-YgJHqfVwqfTzCAvWL"; ## SECRET-DATA
         }
         gateway IKE-GW {
             ike-policy IKE-POL;
-            address 10.217.19.240;
+            address 10.3.3.1;
             external-interface ge-0/0/3.0;
         }
     }
@@ -131,8 +131,8 @@ security {
         from-zone trust to-zone VPN {
             policy trust-to-VPN {
                 match {
-                    source-address Network-A;
-                    destination-address Network-B;
+                    source-address Network-B;
+                    destination-address Network-A;
                     application any;
                 }
                 then {
@@ -143,8 +143,32 @@ security {
         from-zone VPN to-zone trust {
             policy VPN-to-trust {
                 match {
-                    source-address Network-B;
-                    destination-address Network-A;
+                    source-address any;
+                    destination-address Network-B;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone untrust to-zone trust {
+            policy test {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone untrust to-zone VPN {
+            policy test2 {
+                match {
+                    source-address any;
+                    destination-address any;
                     application any;
                 }
                 then {

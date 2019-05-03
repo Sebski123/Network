@@ -1,0 +1,87 @@
+## Last changed: 2019-05-03 08:21:20 UTC
+version 12.1X46-D55.3;
+system {
+    host-name SRX-B2;
+    root-authentication {
+        encrypted-password "$1$d2LBBwCZ$67o93HJ6i.ymeBL8OjLsQ0"; ## SECRET-DATA
+    }
+    services {
+        ssh;
+        telnet;
+    }
+    syslog {
+        archive size 100k files 3;
+        inactive: user * {
+            any emergency;
+        }
+        file messages {
+            any critical;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands error;
+        }
+    }
+    max-configurations-on-flash 5;
+    max-configuration-rollbacks 5;
+}
+interfaces {
+    ge-0/0/1 {
+        unit 0 {
+            family inet {
+                address 10.3.3.2/24;
+            }
+        }
+    }
+    ge-0/0/2 {
+        unit 0 {
+            family inet {
+                address 10.4.4.2/24;
+            }
+        }
+    }
+    ge-0/0/3 {
+        unit 0;
+    }
+    ge-0/0/4 {
+        unit 0;
+    }
+    ge-0/0/5 {
+        unit 0;
+    }
+}
+routing-options {
+    static {
+        route 10.3.3.0/24 next-hop 10.3.3.1;
+        route 10.4.4.0/24 next-hop 10.4.4.1;
+    }
+}
+security {
+    policies {
+        from-zone trust to-zone untrust {
+            policy trust-to-untrust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone trust {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+        }
+        security-zone untrust;
+    }
+}
