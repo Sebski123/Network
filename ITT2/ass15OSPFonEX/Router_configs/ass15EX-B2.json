@@ -1,6 +1,6 @@
 version 12.3R7.7;
 system {
-    host-name EX_C2;
+    host-name EX_B2;
     root-authentication {
         encrypted-password "$1$bEofklWV$laCdo/MujWfMngCRkHlK1."; ## SECRET-DATA
     }
@@ -238,6 +238,8 @@ interfaces {
 routing-options {
     router-id 10.9.255.1;
     autonomous-system 65001;
+}
+protocols {
 }
 policy-options {
     policy-statement send-direct {
