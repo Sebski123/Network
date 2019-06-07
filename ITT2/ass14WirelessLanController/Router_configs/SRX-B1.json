@@ -1,0 +1,187 @@
+## Last changed: 2019-05-23 13:44:54 UTC
+version 12.1X46-D30.2;
+system {
+    host-name SRX-B1;
+    authentication-order [ password radius ];
+    root-authentication {
+        encrypted-password "$1$WdM4yzpQ$wbqCukJte6UUjQUQYyW7l0"; ## SECRET-DATA
+    }
+    radius-server {
+        172.24.111.2 {
+            port 1812;
+            secret "jeffjeff"; ## SECRET-DATA
+        }
+    }
+    login {
+        user bobina {
+            uid 2005;
+            class super-user;
+        }
+        user anthony {
+            uid 2006;
+            class super-user;
+        }
+        user sebastian {
+            uid 2007;
+            class super-user;
+        }
+    }
+    radius-options {
+        password-protocol mschap-v2;
+    }
+    services {
+        dhcp-local-server {
+            group 10 {
+                interface vlan.10;
+            }
+        }
+    }
+}
+interfaces {
+    ge-0/0/1 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan_WLC;
+                }
+            }
+        }
+    }
+    ge-0/0/2 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan_WLC;
+                }
+            }
+        }
+    }
+    ge-0/0/3 {
+        unit 0 {
+            family ethernet-switching {
+                vlan {
+                    members vlan_WLC;
+                }
+            }
+        }
+    }
+    ge-0/0/4 {
+        unit 0 {
+            family inet {
+                address 10.217.19.240/24;
+            }
+        }
+    }
+    vlan {
+        unit 10 {
+            family inet {
+                address 172.24.111.1/24;
+            }
+        }
+    }
+}
+protocols {
+    dot1x {
+        authenticator {
+            authentication-profile-name jeff;
+        }
+    }
+}
+security {
+    policies {
+        from-zone trust to-zone untrust {
+            policy trust-to-untrust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone untrust to-zone trust {
+            policy untrust-to-trust {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone trust {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+            interfaces {
+                vlan.10;
+            }
+        }
+        security-zone untrust {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+            interfaces {
+                ge-0/0/4.0;
+            }
+        }
+    }
+}
+access {
+    radius-server {
+        172.24.111.2 secret "$9$VWbs4f5FAtOHqRS"; ## SECRET-DATA
+    }
+    profile jeff {
+        authentication-order radius;
+    }
+    address-assignment {
+        pool 10 {
+            family inet {
+                network 172.24.111.0/24;
+                range USERS {
+                    low 172.24.111.10;
+                    high 172.24.111.100;
+                }
+                dhcp-attributes {
+                    router {
+                        172.24.111.1;
+                    }
+                }
+            }
+        }
+    }
+}
+poe {
+    guard-band 15;
+    interface ge-0/0/2 {
+        priority high;
+        maximum-power 15.4;
+        telemetries;
+    }
+}
+vlans {
+    vlan_WLC {
+        vlan-id 10;
+        l3-interface vlan.10;
+    }
+}
+set poe interface ge-0/0/1 priority low maximum-power 15.4 telemetries
+set poe interface ge-0/0/2 priority low maximum-power 15.4 telemetries
+set poe interface ge-0/0/2 priority low maximum-power 15.4 telemetries
+set poe management static guard-band 15

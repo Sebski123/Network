@@ -1,0 +1,40 @@
+WLC880R# show config
+# Configuration nvgen'd at 2019-6-07 11:16:04
+# Image 9.6.1.3.0
+# Model WLC880R
+# Last change occurred at 2019-5-24 16:04:32
+set ip route default 172.24.111.1 1
+set system name WLC880R
+set system ip-address 172.24.111.110
+set system countrycode DK
+set timezone CEST 1 0
+set service-profile WLC ssid-name WLCASS
+set service-profile WLC ssid-type clear
+set service-profile WLC auth-fallthru web-portal
+set service-profile WLC web-portal-acl portalacl
+set service-profile WLC attr vlan-name WLC
+set radius client system-ip
+set radius server radius1 address 172.24.111.2 encrypted-key 020c015d0d0c0a274a
+set server group WLCASSRADIUS members radius1
+set enablepass password 31386021388439d55808b75fb1dc38a9c111
+set authentication web ssid WLC ** local
+set authentication dot1x ssid WLCASS ** pass-through WLCASSRADIUS
+set user admin password encrypted 05211301285c4b1b48
+set radio-profile default power-policy max-coverage
+set radio-profile default service-profile WLC
+set ap auto mode enable
+set vlan 1 port 1
+set vlan 1 port 2
+set vlan 1 port 3
+set vlan 1 port 5
+set vlan 1 port 6
+set vlan 1 port 7
+set vlan 1 port 8
+set vlan 2 name WLC
+set vlan 2 port 4
+set interface 2 ip 172.24.111.110 255.255.255.0
+set security acl name portalacl permit udp 0.0.0.0 255.255.255.255 eq 68 0.0.0.0 255.255.255.255 eq 67
+set security acl name portalacl permit udp :: ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff eq 546 :: ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff eq 547
+set security acl name portalacl permit icmpv6 :: ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff :: ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff type 136
+set security acl name portalacl deny 0.0.0.0 255.255.255.255 capture
+commit security acl portalacl
